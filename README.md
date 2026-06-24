@@ -4,6 +4,8 @@ A production-style **Probability of Default (PD)** credit scoring model built on
 
 > **Live interactive dashboard:** [Open in Power BI](https://app.powerbi.com/view?r=eyJrIjoiNDUxNjczNjktYTE4Ni00NDY1LTkxMTEtNTRkMDAxMjI2NGZkIiwidCI6IjI1Y2UwMjYxLWJiZDYtNDljZC1hMWUyLTU0MjYwODg2ZDE1OSJ9)
 > A static export is also available at [`reports/CreditRisk_PD_Dashboard.pdf`](reports/CreditRisk_PD_Dashboard.pdf).
+>
+> **Full analysis notebook:** [`credit_risk_pd_model.ipynb`](https://github.com/Data-JP/Credit_risk_pd_model/blob/master/notebook/credit_risk_pd_model.ipynb) — data cleaning, modelling, and evaluation, end to end.
 
 ![Model Performance dashboard](reports/dashboard/page1_model_performance.png)
 
@@ -14,6 +16,26 @@ A production-style **Probability of Default (PD)** credit scoring model built on
 Lenders must estimate the **probability that a borrower defaults** within a given horizon. This PD estimate is the foundation of credit decisioning and of regulatory frameworks such as **IFRS 9** (expected credit loss provisioning) and **Basel III** (regulatory capital). A good PD model does two things: it **ranks** borrowers by risk (discrimination) and it produces **defensible, explainable** scores that a regulator and a credit committee can scrutinise.
 
 This project models PD on a portfolio of 150,000 borrowers with a **6.7% default rate**, deliberately scoped to PD only (LGD/EAD are reserved for a follow-up project).
+
+---
+
+## Data dictionary
+
+The model uses the following borrower features. The *expected risk direction* column records the economic prior formed before modelling — the odds ratios further down confirm these priors.
+
+| Feature | Description | Expected risk direction |
+|---|---|---|
+| RevolvingUtilizationOfUnsecuredLines | Total balance on credit cards and personal lines of credit ÷ total credit limit | ↑ higher = riskier |
+| age | Borrower age in years | ↓ older = safer |
+| NumberOfTime30-59DaysPastDueNotWorse | Number of times 30–59 days past due (but no worse) in the last 2 years | ↑ riskier |
+| DebtRatio | Monthly debt payments, alimony, and living costs ÷ monthly gross income | ↑ riskier |
+| MonthlyIncome | Monthly income | ↓ safer |
+| NumberOfOpenCreditLinesAndLoans | Number of open loans and lines of credit | ↑ (mild) |
+| NumberRealEstateLoansOrLines | Number of mortgage and real estate loans/lines | ↑ (mild) |
+| NumberOfDependents | Number of dependents in the household (excluding the borrower) | ↑ (mild) |
+| **SeriousDlqin2yrs** | **Target** — borrower experienced 90+ days past due within 2 years | — |
+
+*(Definitions follow the Kaggle Give Me Some Credit data dictionary.)*
 
 ---
 
