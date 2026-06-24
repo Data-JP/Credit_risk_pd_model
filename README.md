@@ -5,6 +5,8 @@ A production-style **Probability of Default (PD)** credit scoring model built on
 > **Live interactive dashboard:** [Open in Power BI](https://app.powerbi.com/view?r=eyJrIjoiNDUxNjczNjktYTE4Ni00NDY1LTkxMTEtNTRkMDAxMjI2NGZkIiwidCI6IjI1Y2UwMjYxLWJiZDYtNDljZC1hMWUyLTU0MjYwODg2ZDE1OSJ9)
 > A static export is also available at [`reports/CreditRisk_PD_Dashboard.pdf`](reports/CreditRisk_PD_Dashboard.pdf).
 
+![Model Performance dashboard](reports/dashboard/page1_model_performance.png)
+
 ---
 
 ## Business context
@@ -23,6 +25,8 @@ This project models PD on a portfolio of 150,000 borrowers with a **6.7% default
 | XGBoost (challenger) | 0.833 | 0.665 | 0.516 |
 
 **In business terms:** ranking borrowers by predicted PD and splitting into deciles, the **riskiest 10% of borrowers default at 29.5%** — a **4.4× lift** over the 6.7% portfolio average — and the **riskiest 30% capture 77% of all defaults**. A credit team reviewing only the top three risk deciles would catch over three-quarters of future defaulters.
+
+![Default rate by risk decile](reports/figures/decile_gains.png)
 
 The two models are nearly indistinguishable in ranking power (a ~0.007 AUC gap). Because that gap is negligible, the **interpretable logistic regression is the production choice**, with XGBoost retained as a challenger that confirms how little nonlinear signal is left on the table.
 
@@ -74,6 +78,8 @@ All signs are economically sensible, and all coefficients are statistically sign
 ### Evaluation
 Both models are compared on AUC, Gini, and KS; ROC curves; **decile gains tables** (default rate, lift, cumulative capture); and a **threshold sweep** that makes the precision/recall trade-off explicit. Because of the 6.7% imbalance, **accuracy is deliberately not used** — a model approving everyone would score 93% accuracy while catching zero defaulters.
 
+![ROC curve comparison](reports/figures/roc_comparison.png)
+
 The operating threshold is treated as a **business decision**, not a statistical one: in lending a missed defaulter (lost principal) typically costs far more than a wrongly declined applicant (lost margin), which argues for a lower threshold and higher recall — calibrated to the institution's cost ratio rather than to F1.
 
 ---
@@ -85,6 +91,10 @@ The Power BI report has three pages:
 1. **Model Performance** — KPI cards (AUC, Gini, KS, portfolio default rate), the decile default-rate chart, and the cumulative-gains (CAP) curve.
 2. **Risk Segmentation** — a **live threshold slider** driving real-time cards for approvals, declines, defaulters caught, sensitivity, and false positives, alongside the threshold-sweep table. This makes the operating-point trade-off tangible for a credit manager.
 3. **Portfolio Profile** — default rate and borrower count by age band and utilisation band, showing where risk concentrates and how much of the book each segment represents.
+
+![Risk Segmentation dashboard](reports/dashboard/page2_risk_segmentation.png)
+
+![Portfolio Profile dashboard](reports/dashboard/page3_portfolio_profile.png)
 
 ---
 
