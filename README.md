@@ -167,15 +167,6 @@ The Power BI file (`.pbix`) is excluded from the repository (large binary); the 
 
 ---
 
-## Next steps
-
-- **SHAP values** for model-agnostic interpretation of the XGBoost challenger.
-- **Probability calibration** (calibration curves, Hosmer–Lemeshow) — discrimination is validated here; calibration of the PD *levels* is the natural complement.
-- **LGD and EAD modelling** in a follow-up project, enabling full **Expected Credit Loss** (ECL = PD × LGD × EAD) estimation.
-- **Out-of-time validation** to assess stability and drift on a later period.
-
----
-
 ## Data source & disclaimer
 
 Data: Kaggle [*Give Me Some Credit*](https://www.kaggle.com/c/GiveMeSomeCredit) competition (synthetic/anonymised consumer credit data). This project is for portfolio and educational purposes and does not constitute a deployed credit decisioning system.
