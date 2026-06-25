@@ -136,7 +136,7 @@ The Power BI report has three pages:
 .
 ├── data/
 │   └── cs-training.csv            # Kaggle "Give Me Some Credit" training data
-├── notebooks/
+├── notebook/
 │   └── credit_risk_pd_model.ipynb # full analysis: cleaning → modelling → evaluation
 ├── reports/
 │   ├── figures/                   # exported charts (ROC, decile gains, etc.)
